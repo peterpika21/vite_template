@@ -1,0 +1,10 @@
+.h {
+  &-container {
+    width: 100%;
+    max-width: $container-width;
+  }
+
+  &-vertical-center {
+    @include vertical-center();
+  }
+}
