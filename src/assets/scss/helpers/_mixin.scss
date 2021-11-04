@@ -1,7 +1,7 @@
 // 清除浮動
 @mixin clearfix {
   &::after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
@@ -15,15 +15,13 @@
 }
 
 // 過長文字結尾省略 可自訂第幾行
-@mixin ellipsis($line:1) {
+@mixin ellipsis($line: 1) {
   text-overflow: ellipsis;
   overflow: hidden;
 
   @if $line==1 {
     white-space: nowrap;
-  }
-
-  @else {
+  } @else {
     display: -webkit-box;
     -webkit-line-clamp: $line;
     /* autoprefixer: off */
@@ -34,15 +32,22 @@
 
 // 垂直至中
 @mixin vertical-center {
-   position: relative;
-   top: 50%;
-   -ms-transform: translateY(-50%);
-   -webkit-transform: translateY(-50%);
-   transform: translateY(-50%);
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 // 定位 如:@include position(relative, 0 ,null ,null ,10em,1);
-@mixin position($type:relative, $top:null, $right:null, $bottom:null, $left:null, $z:null) {
+@mixin position(
+  $type: relative,
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null,
+  $z: null
+) {
   position: $type;
   top: $top;
   right: $right;
@@ -58,61 +63,43 @@
 //     content: "";
 //   }
 // }
-@mixin triangle($direction,
-$width,
-$height,
-$color) {
-
-  @if not index("up""up-right""right""down-right""down""down-left""left""up-left",
-  $direction) {
+@mixin triangle($direction, $width, $height, $color) {
+  @if not
+    index(
+      'up' 'up-right' 'right' 'down-right' 'down' 'down-left' 'left' 'up-left',
+      $direction
+    )
+  {
     @error "Direction must be `up`, `up-right`, `right`, `down-right`, "+"`down`, `down-left`, `left` or `up-left`.";
-  }
-
-  @else if not _is-color($color) {
+  } @else if not _is-color($color) {
     @error "`#{$color}` is not a valid color for the `$color` argument in "+"the `triangle` mixin.";
-  }
-
-  @else {
+  } @else {
     border-style: solid;
     height: 0;
     width: 0;
 
-    @if $direction=="up" {
+    @if $direction== 'up' {
       border-color: transparent transparent $color;
       border-width: 0 ($width / 2) $height;
-    }
-
-    @else if $direction=="up-right" {
+    } @else if $direction== 'up-right' {
       border-color: transparent $color transparent transparent;
       border-width: 0 $width $width 0;
-    }
-
-    @else if $direction=="right" {
+    } @else if $direction== 'right' {
       border-color: transparent transparent transparent $color;
       border-width: ($height / 2) 0 ($height / 2) $width;
-    }
-
-    @else if $direction=="down-right" {
+    } @else if $direction== 'down-right' {
       border-color: transparent transparent $color;
       border-width: 0 0 $width $width;
-    }
-
-    @else if $direction=="down" {
+    } @else if $direction== 'down' {
       border-color: $color transparent transparent;
       border-width: $height ($width / 2) 0;
-    }
-
-    @else if $direction=="down-left" {
+    } @else if $direction== 'down-left' {
       border-color: transparent transparent transparent $color;
       border-width: $width 0 0 $width;
-    }
-
-    @else if $direction=="left" {
+    } @else if $direction== 'left' {
       border-color: transparent $color transparent transparent;
       border-width: ($height / 2) $width ($height / 2) 0;
-    }
-
-    @else if $direction=="up-left" {
+    } @else if $direction== 'up-left' {
       border-color: $color transparent transparent;
       border-width: $width $width 0 0;
     }
@@ -128,15 +115,26 @@ $color) {
 // }
 
 @mixin placeholder() {
-  input::-webkit-input-placeholder {@content}
-  input:-moz-placeholder           {@content}
-  input::-moz-placeholder          {@content}
-  input:-ms-input-placeholder      {@content}
-};
+  input::-webkit-input-placeholder {
+    @content;
+  }
+  input:-moz-placeholder {
+    @content;
+  }
+  input::-moz-placeholder {
+    @content;
+  }
+  input:-ms-input-placeholder {
+    @content;
+  }
+}
 
 // 滾輪條
-@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white, 50%)) {
-
+@mixin scrollbars(
+  $size,
+  $foreground-color,
+  $background-color: mix($foreground-color, white, 50%)
+) {
   // For Google Chrome
   ::-webkit-scrollbar {
     width: $size;
@@ -158,15 +156,9 @@ $color) {
   }
 }
 
-$RWD: (
-  'lg': 1200px,
-  'md': 992px,
-  'xs': 768px
-);
-
 // RWD斷點
 @mixin breakpoint($point) {
-  @each $key,$value in $RWD {
+  @each $key, $value in $RWD {
     @if $point==$key {
       @media only screen and (max-width: $value) {
         @content;

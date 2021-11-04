@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import default_index from '@/page/default_index.vue';
+import default_index from '@/view/default_index.vue';
 
 const routes = [
   {
